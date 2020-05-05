@@ -10,6 +10,8 @@ import java.util.List;
 public class Profile {
 
     private long id;
+    private String description;
+    private Long number;
     private List<Link> links = new ArrayList<>();
 
     public long getId() {
@@ -18,6 +20,22 @@ public class Profile {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Long getNumber() {
+        return number;
+    }
+
+    public void setNumber(Long number) {
+        this.number = number;
     }
 
     public List<Link> getLinks() {
@@ -38,6 +56,8 @@ public class Profile {
 
         return new EqualsBuilder()
                 .append(id, profile.id)
+                .append(description, profile.description)
+                .append(number, profile.number)
                 .append(links, profile.links)
                 .isEquals();
     }
@@ -46,6 +66,8 @@ public class Profile {
     public int hashCode() {
         return new HashCodeBuilder(17, 37)
                 .append(id)
+                .append(description)
+                .append(number)
                 .append(links)
                 .toHashCode();
     }
@@ -54,6 +76,8 @@ public class Profile {
     public String toString() {
         return new ToStringBuilder(this)
                 .append("id", id)
+                .append("description", description)
+                .append("number", number)
                 .append("links", links)
                 .toString();
     }

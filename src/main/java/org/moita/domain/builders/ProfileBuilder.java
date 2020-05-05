@@ -3,12 +3,14 @@ package org.moita.domain.builders;
 import org.moita.domain.Link;
 import org.moita.domain.Profile;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public final class ProfileBuilder {
-
     private long id;
-    private List<Link> links;
+    private String description;
+    private Long number;
+    private List<Link> links = new ArrayList<>();
 
     private ProfileBuilder() {
     }
@@ -22,6 +24,16 @@ public final class ProfileBuilder {
         return this;
     }
 
+    public ProfileBuilder withDescription(String description) {
+        this.description = description;
+        return this;
+    }
+
+    public ProfileBuilder withNumber(Long number) {
+        this.number = number;
+        return this;
+    }
+
     public ProfileBuilder withLinks(List<Link> links) {
         this.links = links;
         return this;
@@ -30,6 +42,8 @@ public final class ProfileBuilder {
     public Profile build() {
         Profile profile = new Profile();
         profile.setId(id);
+        profile.setDescription(description);
+        profile.setNumber(number);
         profile.setLinks(links);
         return profile;
     }

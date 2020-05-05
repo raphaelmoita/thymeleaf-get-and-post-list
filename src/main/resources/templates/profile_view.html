@@ -1,31 +1,39 @@
 <!DOCTYPE html>
-
 <html xmlns:th="http://www.thymeleaf.org">
 
-<html>
 <head>
     <title>View</title>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+            integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+            crossorigin="anonymous"></script>
 </head>
 <body>
 
 <table border="1">
     <tr>
-        <td colspan="2"><a th:href="@{/edit}" src="#">edit</a></td>
+        <td><a th:href="@{/}" src="#">home</a></td>
+        <td><a th:href="@{/view}" src="#">view</a></td>
+        <td><a th:href="@{/edit}" src="#">edit</a></td>
     </tr>
     <tr>
         <td>Profile</td>
-        <td th:text="${profile.id}">-</td>
+        <td th:colspan="2" th:text="${profile.id}">-</td>
     </tr>
     <tr>
-         <td>Description</td>
-         <td>URL</td>
+        <td>Description</td>
+        <td th:colspan="2" th:text="${profile.description}"></td>
+    </tr>
+    <tr>
+        <td>Number</td>
+        <td th:colspan="2" th:text="${profile.number}"></td>
     </tr>
     <tr th:if="${profile.links.empty}">
         <td colspan="2"> No Links Available </td>
     </tr>
     <tr th:each="link : ${profile.links}">
         <td th:text="${link.description}">-</td>
-        <td th:text="${link.url}">-</td>
+        <td th:colspan="2" th:text="${link.url}">-</td>
     </tr>
 </table>
 

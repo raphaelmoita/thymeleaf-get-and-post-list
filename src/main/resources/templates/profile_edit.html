@@ -1,38 +1,93 @@
 <!DOCTYPE html>
-
 <html xmlns:th="http://www.thymeleaf.org">
 
-<html>
 <head>
     <title>View</title>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+            integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+            crossorigin="anonymous"></script>
 </head>
 <body>
-<form action="#" th:action="@{/save}" th:object="${profile}" method="post">
+<form class="form" action="#" th:action="@{/save}" th:object="${profile}" method="post">
 
-<table border="1">
+<table border="1" class="myTable" id="myTable">
     <tr>
-        <td colspan="2"><a th:href="@{/view}" src="#">view</a></td>
-    </tr><tr>
-        <td colspan="2"><input type="submit" value="Save" /></td>
+        <td><a th:href="@{/}" src="#">home</a></td>
+        <td><a th:href="@{/view}" src="#">view</a></td>
+        <td><a th:href="@{/edit}" src="#">edit</a></td>
     </tr>
     <tr>
         <td>Profile</td>
-        <td th:text="${id}">-</td>
+        <td colspan="2"><input th:field="*{id}" th:size="30"></td>
     </tr>
     <tr>
         <td>Description</td>
-        <td>URL</td>
+        <td colspan="2"><input th:field="*{description}" th:size="30"></td>
+    </tr>
+    <tr>
+        <td>Number</td>
+        <td colspan="2"><input th:field="*{number}" th:size="30"></td>
     </tr>
     <tr th:if="${profile.links.empty}">
-        <td colspan="2"> No Links Available </td>
+        <td colspan="3"> No Links Available </td>
     </tr>
     <tr th:each="link, itemStat : *{links}">
-        <input hidden th:field="*{links[__${itemStat.index}__].id}" />
-        <td><input th:field="*{links[__${itemStat.index}__].description}" /></td>
-        <td><input th:field="*{links[__${itemStat.index}__].url}" /></td>
+        <td>
+            <input hidden th:field="*{links[__${itemStat.index}__].id}">
+            <input th:field="*{links[__${itemStat.index}__].description}">
+        </td>
+        <td>
+            <input th:field="*{links[__${itemStat.index}__].url}">
+        </td>
+        <td>
+            <input type="button" id="delete" value="delete">
+        </td>
     </tr>
 </table>
 
+<div>
+    <button type="button" class="add">Add</button> <button type="button" class="save">Save</button> <button type="button" class="cancel">Cancel</button>
+</div>
+
+<script th:inline="javascript">
+
+var idLastElement = /*[(${#lists.size(profile.links)})]*/ 999;
+
+$('.add').click(function(e) {
+    e.preventDefault();
+    var id = idLastElement++;
+    var link = '<tr>' +
+               '   <td>' +
+               '      <input id="links' + id + '.description" name="links[' + id + '].description" value="link-' + id + '">' +
+               '   </td>' +
+               '   <td>' +
+               '      <input id="links' + id + '.url" name="links[' + id + '].url">' +
+               '   </td>' +
+               '   <td>' +
+               '      <input type="button" id="delete" value="delete">' +
+               '   </td>' +
+               '</tr>';
+
+    $('.myTable').append(link);
+});
+
+$(".save").click(function(e) {
+    e.preventDefault();
+    $(".form").submit();
+});
+
+$(".cancel").click(function() {
+    console.log('cancel');
+    document.location.replace('/');
+});
+
+$('.myTable').on('click', 'input[id=delete]', function (e) {
+    e.preventDefault();
+    $(this).closest('tr').remove();
+})
+
+</script>
 </form>
 </body>
 </html>
