@@ -44,50 +44,15 @@
             <input type="button" id="delete" value="delete">
         </td>
     </tr>
+    <script th:inline="javascript">var id = /*[(${#lists.size(profile.links)})]*/ 0;</script>
 </table>
 
 <div>
     <button type="button" class="add">Add</button> <button type="button" class="save">Save</button> <button type="button" class="cancel">Cancel</button>
 </div>
 
-<script th:inline="javascript">
+<script th:inline="javascript" th:src="@{/js/profile.js}"></script>
 
-var idLastElement = /*[(${#lists.size(profile.links)})]*/ 999;
-
-$('.add').click(function(e) {
-    e.preventDefault();
-    var id = idLastElement++;
-    var link = '<tr>' +
-               '   <td>' +
-               '      <input id="links' + id + '.description" name="links[' + id + '].description" value="link-' + id + '">' +
-               '   </td>' +
-               '   <td>' +
-               '      <input id="links' + id + '.url" name="links[' + id + '].url">' +
-               '   </td>' +
-               '   <td>' +
-               '      <input type="button" id="delete" value="delete">' +
-               '   </td>' +
-               '</tr>';
-
-    $('.myTable').append(link);
-});
-
-$(".save").click(function(e) {
-    e.preventDefault();
-    $(".form").submit();
-});
-
-$(".cancel").click(function() {
-    console.log('cancel');
-    document.location.replace('/');
-});
-
-$('.myTable').on('click', 'input[id=delete]', function (e) {
-    e.preventDefault();
-    $(this).closest('tr').remove();
-})
-
-</script>
 </form>
 </body>
 </html>

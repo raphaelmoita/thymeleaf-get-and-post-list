@@ -8,10 +8,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.stream.Collectors;
-
 import static java.util.Arrays.asList;
-import static java.util.Objects.nonNull;
 import static java.util.stream.Collectors.toList;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 import static org.moita.domain.builders.LinkBuilder.aLink;
@@ -68,11 +65,13 @@ public class ProfileController {
             PROFILE.setLinks(profile.getLinks()
                     .stream()
                     .filter(l -> isNotEmpty(l.getDescription())
-                              && isNotEmpty(l.getUrl())).collect(toList()));
+                            && isNotEmpty(l.getUrl())).collect(toList()));
         }
 
         return model;
     }
 
     // https://vkuzel.com/add-or-remove-items-from-a-list-of-objects-in-a-model-attribute-using-spring-mvc-and-thymeleaf
+
+    //javascript:{ var c = 0; while (c < 1000) {document.querySelector(".add").click(); c++}}
 }
